@@ -11,9 +11,26 @@ export class LoginComponent implements OnInit {
 
   constructor(private auth: AuthService) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     console.log(this.auth.test());
     //this.auth.getRegionTypes().subscribe(heroes => console.log('aaa'));
+    let sampleUser: any = {
+      email: 'michael@realpython.com' as string,
+      password: 'michael' as string
+    };
+    this.auth.register(sampleUser)
+    .then((user) => {
+      console.log(user.json());
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+    this.auth.login(sampleUser).then((user) => {
+      console.log(user.json());
+    })
+    .catch((err) => {
+      console.log(err);
+    });
   }
 
 }
