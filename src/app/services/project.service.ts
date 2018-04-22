@@ -1,18 +1,23 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
-import { of } from 'rxjs/observable/of';
+import { map } from 'rxjs/operators';
 
+import { ApiResponse } from '../models/apiresponse';
 import { ApiProject } from '../models/apiproject';
-import { API_PROJECTS } from '../models/mock-projects';
 
 @Injectable()
 export class ProjectService {
+  private BASE_URL: string = 'http://api.localhost:8080/v0';
+  private headers: Headers = new Headers({'Content-Type': 'application/json'});
+  private projectsUrl = this.BASE_URL + '/projects';
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   getAllProjects(): Observable<ApiProject[]> {
-    return of(API_PROJECTS);
+    return this.http.get<ApiResponse>(this.projectsUrl).pipe(
+      map(response => { return response.Result; })
+    );
   }
-
 }
