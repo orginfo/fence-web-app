@@ -5,6 +5,7 @@ import { RouterModule } from "@angular/router";
 
 import { AppComponent } from './app.component';
 import { ProjectsComponent } from './components/projects/projects.component';
+import { ProjectService } from './services/project.service';
 
 
 @NgModule({
@@ -18,7 +19,7 @@ import { ProjectsComponent } from './components/projects/projects.component';
       { path: 'projects', component: ProjectsComponent }
     ])
   ],
-  providers: [],
+  providers: [ProjectService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
