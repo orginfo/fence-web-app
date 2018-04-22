@@ -15,9 +15,9 @@
     <tbody>
         <tr *ngFor="let project of projects">
             <td>{{project.nr}}</td>
-            <td>{{project.client_name}}</td>
+            <td>{{project.client.name}}</td>
             <td>{{project.address}}</td>
-            <td>{{project.client_phone}}</td>
+            <td>{{project.client.phone}}</td>
             <td>{{project.contract_date}}</td>
             <td>{{project.comment}}</td>
         </tr>

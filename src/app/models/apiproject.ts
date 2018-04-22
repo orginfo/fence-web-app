@@ -1,8 +1,13 @@
+import { ApiClient } from './apiclient';
+import { ApiUser } from './apiuser';
+
 export class ApiProject {
-  nr: string; //Номер договора
-  client_name: string; //ФИО //TODO: переписать правильно.
-  address: string; //Адрес объекта
-  client_phone: string; //Телефон //TODO: переписать правильно.
-  contract_date: string; //Дата создания
-  comment: string; //Комментарий
+  id: number;
+  nr: string;
+  contract_date: string;
+  install_date: string;
+  address: string;
+  comment: string;
+  user: ApiUser;
+  client: ApiClient;
 }
