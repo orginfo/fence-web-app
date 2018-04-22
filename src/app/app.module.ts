@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { RouterModule } from "@angular/router";
 
 
 import { AppComponent } from './app.component';
@@ -12,7 +13,10 @@ import { ProjectsComponent } from './components/projects/projects.component';
     ProjectsComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    RouterModule.forRoot([
+      { path: 'projects', component: ProjectsComponent }
+    ])
   ],
   providers: [],
   bootstrap: [AppComponent]
