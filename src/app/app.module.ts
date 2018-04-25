@@ -21,7 +21,7 @@ import { RegionsComponent } from './components/regions/regions.component';
     HttpClientModule,
     RouterModule.forRoot([
       { path: 'projects', component: ProjectsComponent },
-      { path: 'projects/:id/regions', component: RegionsComponent },
+      { path: 'projects/:projectId/regions', component: RegionsComponent },
     ])
   ],
   providers: [ProjectService],

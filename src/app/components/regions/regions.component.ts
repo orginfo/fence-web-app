@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { ProjectService } from '../../services/project.service';
 import { ApiRegion } from '../../models/apiregion';
@@ -11,10 +12,14 @@ import { ApiRegion } from '../../models/apiregion';
 export class RegionsComponent implements OnInit {
   regions: ApiRegion[];
 
-  constructor(private projectService: ProjectService) { }
+  constructor(
+    private route: ActivatedRoute,
+    private projectService: ProjectService
+  ) { }
 
   getProjectRegions(): void {
-    this.projectService.getProjectRegions()
+    const id = +this.route.snapshot.paramMap.get('projectId');
+    this.projectService.getProjectRegions(id)
     .subscribe(regions => this.regions = regions);
   }
 

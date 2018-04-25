@@ -23,7 +23,7 @@ export class ProjectService {
     );
   }
 
-  getProjectRegions(): Observable<ApiRegion[]> {
+  getProjectRegions(id: number): Observable<ApiRegion[]> {
     return of(REGIONS);
   }
 }
