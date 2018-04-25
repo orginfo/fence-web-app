@@ -3,9 +3,11 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
+import { of } from 'rxjs/observable/of';
 
 import { ApiResponse } from '../models/apiresponse';
 import { ApiProject } from '../models/apiproject';
+import { ApiRegion, REGIONS } from '../models/apiregion';
 
 @Injectable()
 export class ProjectService {
@@ -19,5 +21,9 @@ export class ProjectService {
     return this.http.get<ApiResponse>(this.projectsUrl).pipe(
       map(response => { return response.Result; })
     );
+  }
+
+  getProjectRegions(): Observable<ApiRegion[]> {
+    return of(REGIONS);
   }
 }

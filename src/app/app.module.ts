@@ -7,18 +7,21 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { ProjectsComponent } from './components/projects/projects.component';
 import { ProjectService } from './services/project.service';
+import { RegionsComponent } from './components/regions/regions.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProjectsComponent
+    ProjectsComponent,
+    RegionsComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     RouterModule.forRoot([
-      { path: 'projects', component: ProjectsComponent }
+      { path: 'projects', component: ProjectsComponent },
+      { path: 'projects/:id/regions', component: RegionsComponent },
     ])
   ],
   providers: [ProjectService],
