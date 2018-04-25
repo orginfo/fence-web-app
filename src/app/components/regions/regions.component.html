@@ -6,12 +6,18 @@
         <tr>
             <th scope="col">Идентификатор типа забора</th>
             <th scope="col">Описание</th>
+            <th scope="col">Действие</th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let region of regions">
             <td>{{region.region_type_id}}</td>
             <td>{{region.description}}</td>
+            <td>
+                <a routerLink="/projects/{{projectId}}/regions-of-type-{{region.region_type_id}}/{{region.id}}" class="btn btn-outline-primary" title="Редактировать">
+                    <span class="fa fa-pencil" aria-hidden="true"></span> Редактировать
+                </a>
+            </td>
         </tr>
     </tbody>
 </table>

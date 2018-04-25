@@ -11,6 +11,7 @@ import { ApiRegion } from '../../models/apiregion';
 })
 export class RegionsComponent implements OnInit {
   regions: ApiRegion[];
+  projectId: number;
 
   constructor(
     private route: ActivatedRoute,
@@ -18,8 +19,8 @@ export class RegionsComponent implements OnInit {
   ) { }
 
   getProjectRegions(): void {
-    const id = +this.route.snapshot.paramMap.get('projectId');
-    this.projectService.getProjectRegions(id)
+    this.projectId = +this.route.snapshot.paramMap.get('projectId');
+    this.projectService.getProjectRegions(this.projectId)
     .subscribe(regions => this.regions = regions);
   }
 
