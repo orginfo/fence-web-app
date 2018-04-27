@@ -1,0 +1,12 @@
+<form (ngSubmit)="onSubmit()" #regionCreationForm="ngForm">
+<div class="input-group mb-3">
+    <select class="form-control" id="power" required [(ngModel)]="model.type" name="type">
+      <option *ngFor="let type of types" [value]="type.id">{{type.user_name}}</option>
+    </select>
+    <div class="input-group-append">
+        <button class="btn btn-outline-primary" type="submit" [disabled]="!model.type">
+            <span class="fa fa-plus" aria-hidden="true"></span> Добавить
+        </button>
+    </div>
+</div>
+</form>
