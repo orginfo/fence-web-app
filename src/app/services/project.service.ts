@@ -19,7 +19,7 @@ export class ProjectService {
 
   getAllProjects(): Observable<ApiProject[]> {
     return this.http.get<ApiResponse>(this.projectsUrl).pipe(
-      map(response => { return response.Result; })
+      map(response => response.Result)
     );
   }
 
