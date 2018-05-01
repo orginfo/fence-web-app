@@ -12,6 +12,7 @@ import { RegionTypeService } from './services/region-type.service';
 import { RegionsComponent } from './components/regions/regions.component';
 import { RegionOfType1Component } from './components/region-of-type-1/region-of-type-1.component';
 import { RegionCreationComponent } from './components/region-creation/region-creation.component';
+import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { RegionCreationComponent } from './components/region-creation/region-cre
     ProjectsComponent,
     RegionsComponent,
     RegionOfType1Component,
-    RegionCreationComponent
+    RegionCreationComponent,
+    BreadcrumbComponent
   ],
   imports: [
     BrowserModule,
