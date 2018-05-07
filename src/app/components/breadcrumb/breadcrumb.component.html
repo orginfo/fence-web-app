@@ -1,25 +1,8 @@
-<nav aria-label="breadcrumb" [ngSwitch]="path">
-  <ol class="breadcrumb" *ngSwitchCase="'projects'">
-    <li class="breadcrumb-item active" aria-current="page">Projects</li>
-  </ol>
-
-  <ol class="breadcrumb" *ngSwitchCase="'projects/:projectId/regions'">
-    <li class="breadcrumb-item"><a routerLink="/projects">Projects</a></li>
-    <li class="breadcrumb-item active" aria-current="page">{{projectId}}</li>
-    <li class="breadcrumb-item active" aria-current="page">Regions</li>
-  </ol>
-
-  <ol class="breadcrumb" *ngSwitchCase="'projects/:projectId/regions-of-type-1/:regionId'">
-    <li class="breadcrumb-item"><a routerLink="/projects">Projects</a></li>
-    <li class="breadcrumb-item active" aria-current="page">{{projectId}}</li>
-    <li class="breadcrumb-item"><a routerLink="/projects/{{projectId}}/regions">Regions</a></li>
-    <li class="breadcrumb-item active" aria-current="page">{{regionId}}</li>
-  </ol>
-
-  <ol class="breadcrumb" *ngSwitchCase="'projects/:projectId/new-region-of-type-1'">
-    <li class="breadcrumb-item"><a routerLink="/projects">Projects</a></li>
-    <li class="breadcrumb-item active" aria-current="page">{{projectId}}</li>
-    <li class="breadcrumb-item"><a routerLink="/projects/{{projectId}}/regions">Regions</a></li>
-    <li class="breadcrumb-item active" aria-current="page">New region</li>
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+  <ng-container *ngFor="let item of items">
+    <li *ngIf="item.routerLink === null" class="breadcrumb-item active" aria-current="page">{{item.name}}</li>
+    <li *ngIf="item.routerLink !== null" class="breadcrumb-item"><a routerLink="{{item.routerLink}}">{{item.name}}</a></li>
+  </ng-container>
   </ol>
 </nav>

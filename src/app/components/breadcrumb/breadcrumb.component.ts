@@ -4,15 +4,15 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
 
+import { BreadcrumbItem } from './breadcrumb-item';
+
 @Component({
   selector: 'app-breadcrumb',
   templateUrl: './breadcrumb.component.html',
   styleUrls: ['./breadcrumb.component.css']
 })
-export class BreadcrumbComponent implements OnInit {
-  projectId: number;
-  regionId: number;
-  path: string;
+export class BreadcrumbComponent {
+  items: BreadcrumbItem[];
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -28,13 +28,38 @@ export class BreadcrumbComponent implements OnInit {
         return route;
       })
       .filter((route) => route.outlet === 'primary')
-      .subscribe(activatedRoute => this.buildBreadcrumb(activatedRoute))
+      .subscribe(activatedRoute => this.updateBreadcrumb(activatedRoute))
   }
 
-  buildBreadcrumb(activatedRoute: ActivatedRoute): void {
-    this.projectId = +activatedRoute.snapshot.paramMap.get("projectId");
-    this.regionId = +activatedRoute.snapshot.paramMap.get("regionId");
-    this.path = activatedRoute.routeConfig.path;
-  }
+  updateBreadcrumb(activatedRoute: ActivatedRoute): void {
+    let path: string = activatedRoute.routeConfig.path;
 
+    if (path == "projects") {
+      this.items = [
+        {name: "Projects", routerLink: null}
+      ];
+    } else if (path == "projects/:projectId/regions") {
+      this.items = [
+        {name: "Projects", routerLink: "/projects"},
+        {name: activatedRoute.snapshot.paramMap.get("projectId"), routerLink: null},
+        {name: "Regions", routerLink: null},
+      ];
+    } else if (path.search(new RegExp("^projects/:projectId/new-region-of-type-\\d$")) == 0) {
+      let projectId: string = activatedRoute.snapshot.paramMap.get("projectId");
+      this.items = [
+        {name: "Projects", routerLink: "/projects"},
+        {name: projectId, routerLink: null},
+        {name: "Regions", routerLink: `/projects/${projectId}/regions`},
+        {name: "New region", routerLink: null},
+      ];
+    } else if (path.search(new RegExp("^projects/:projectId/regions-of-type-\\d/:regionId$")) == 0) {
+      let projectId: string = activatedRoute.snapshot.paramMap.get("projectId");
+      this.items = [
+        {name: "Projects", routerLink: "/projects"},
+        {name: projectId, routerLink: null},
+        {name: "Regions", routerLink: `/projects/${projectId}/regions`},
+        {name: activatedRoute.snapshot.paramMap.get("regionId"), routerLink: null},
+      ];
+    }
+  }
 }

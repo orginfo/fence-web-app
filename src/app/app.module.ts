@@ -13,6 +13,7 @@ import { RegionsComponent } from './components/regions/regions.component';
 import { RegionOfType1Component } from './components/region-of-type-1/region-of-type-1.component';
 import { RegionCreationComponent } from './components/region-creation/region-creation.component';
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
+import { RegionOfType2Component } from './components/region-of-type-2/region-of-type-2.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.componen
     RegionsComponent,
     RegionOfType1Component,
     RegionCreationComponent,
-    BreadcrumbComponent
+    BreadcrumbComponent,
+    RegionOfType2Component
   ],
   imports: [
     BrowserModule,
@@ -33,6 +35,8 @@ import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.componen
       { path: 'projects/:projectId/regions', component: RegionsComponent },
       { path: 'projects/:projectId/regions-of-type-1/:regionId', component: RegionOfType1Component },
       { path: 'projects/:projectId/new-region-of-type-1', component: RegionOfType1Component },
+      { path: 'projects/:projectId/regions-of-type-2/:regionId', component: RegionOfType2Component },
+      { path: 'projects/:projectId/new-region-of-type-2', component: RegionOfType2Component },
     ])
   ],
   providers: [ProjectService, RegionTypeService],
