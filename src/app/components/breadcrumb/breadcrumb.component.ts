@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 
-import 'rxjs/add/operator/filter';
-import 'rxjs/add/operator/map';
+import { map, filter } from 'rxjs/operators';
 
 import { BreadcrumbItem } from './breadcrumb-item';
 
@@ -20,15 +19,15 @@ export class BreadcrumbComponent {
   ) { }
 
   ngOnInit() {
-    this.router.events
-      .filter((event) => event instanceof NavigationEnd)
-      .map(() => this.activatedRoute)
-      .map((route) => {
+    this.router.events.pipe(
+      filter((event) => event instanceof NavigationEnd),
+      map(() => this.activatedRoute),
+      map((route) => {
         while (route.firstChild) route = route.firstChild;
         return route;
-      })
-      .filter((route) => route.outlet === 'primary')
-      .subscribe(activatedRoute => this.updateBreadcrumb(activatedRoute))
+      }),
+      filter((route) => route.outlet === 'primary')
+    ).subscribe(activatedRoute => this.updateBreadcrumb(activatedRoute));
   }
 
   updateBreadcrumb(activatedRoute: ActivatedRoute): void {
