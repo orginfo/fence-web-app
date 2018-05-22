@@ -2,32 +2,32 @@
   region-of-type-2 works!
 </p>
 <h3><i>FormControl in a FormGroup</i></h3>
-<form [formGroup]="form">
-    <fieldset>
-        <div class="form-group row">
-            <label for="name" class="col-sm-2 col-form-label">Название</label>
-            <div class="col-sm-10">
-                <input type="text" id="name" class="form-control" formControlName="name">
-            </div>
-        </div>
-    </fieldset>
+<form [formGroup]="regionForm" (ngSubmit)="onSubmit()">
     <fieldset>
         <legend>Профнастил</legend>
         <div class="form-group row">
-            <label for="color" class="col-sm-2 col-form-label">Цвет</label>
-            <div class="col-sm-10">
-                <select id="color" class="form-control">
-                    <option value="оцинкованный">Цинк</option>
-                    <option value="окрашенный">RAL1014 (сл.-бежевый)</option>
-                    <option value="окрашенный">RAL1015 (бежевый)</option>
-                    <option value="окрашенный">RAL1036 (бронза)</option>
-                    <option value="окрашенный">RAL2004 (оранж.)</option>
-                    <option value="окрашенный">RAL3003 (рубин)</option>
+            <label for="color" class="col-lg-3 col-form-label">Длина участка, в м</label>
+            <div class="col-lg-9">
+                <input class="form-control" formControlName="length">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="thickness" class="col-lg-3 col-form-label">Толщина профлиста, мм</label>
+            <div class="col-lg-9">
+                <select id="thickness" class="form-control" formControlName="thickness">
+                    <option *ngFor="let thickness of thicknesses" [value]="thickness">{{thickness}}</option>
                 </select>
             </div>
         </div>
     </fieldset>
+    <div class="form-group row">
+        <div class="col-sm-8">
+            <button type="submit" class="btn btn-outline-primary" [disabled]="regionForm.status != 'VALID'">
+                <span class="fa fa-hdd-o" aria-hidden="true"></span> Сохранить
+            </button>
+        </div>
+    </div>
 </form>
 
-<p>Form value: {{ form.value | json }}</p>
-<p>Form status: {{ form.status | json }}</p>
+<p>Form value: {{ regionForm.value | json }}</p>
+<p>Form status: {{ regionForm.status | json }}</p>

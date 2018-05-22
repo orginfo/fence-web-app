@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { ProjectsComponent } from './components/projects/projects.component';
 import { ProjectService } from './services/project.service';
 import { RegionTypeService } from './services/region-type.service';
+import { RegionService } from './services/region.service';
 import { RegionsComponent } from './components/regions/regions.component';
 import { RegionOfType1Component } from './components/region-of-type-1/region-of-type-1.component';
 import { RegionCreationComponent } from './components/region-creation/region-creation.component';
@@ -42,7 +43,7 @@ import { RegionOfType2Component } from './components/region-of-type-2/region-of-
       { path: '', redirectTo: '/projects', pathMatch: 'full' },
     ])
   ],
-  providers: [ProjectService, RegionTypeService],
+  providers: [ProjectService, RegionTypeService, RegionService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
