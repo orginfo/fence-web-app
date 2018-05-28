@@ -10,55 +10,59 @@ import { RegionOfType2 } from '../models/region-of-type-2';
 export class RegionService {
   private BASE_URL: string = 'http://api.localhost:8080/v0';
 
+  private fieldsOfType1: [number, string][] = [
+    [0, "length"],
+    [15, "thickness"]
+  ];
+  private fieldsOfType2: [number, string][] = [
+    [0, "length"],
+    [15, "thickness"]
+  ];
+  private fieldsByRegionType: Map<number, [number, string][]> = new Map([
+    [1, this.fieldsOfType1],
+    [2, this.fieldsOfType2],
+  ]);
+
   constructor(private http: HttpClient) { }
 
-  getParamsFromRegionOfType2(region: RegionOfType2): HttpParams {
-    debugger;
-    const index: Map<string, number> = new Map([
-      ["length", 0], //"user_name": "Длина участка, в м"
-      ["thickness", 15], //"user_name": "Толщина профлиста, мм"
-    ]);
-
-    let lengthIndex = index.get("length");
-    let lengthValue = region.length;
-    let lengthParam = `${lengthIndex}(${lengthValue})`;
-
-    let thicknessIndex = index.get("thickness");
-    let thicknessValue = region.thickness;
-    let thicknessParam = `${thicknessIndex}(${thicknessValue})`;
-
+  addRegion(projectId: number, regionType: number, region: any): Observable<any> {
     let params: HttpParams = new HttpParams()
       .set('method', 'put')
-      .set('region_type', '2') //TODO: тип неверный
-      .set('param', lengthParam)
-      .set('param', thicknessParam);
+      .set('region_type', regionType.toString());
 
-    return params;
-  }
+    let fields = this.fieldsByRegionType.get(regionType);
+    for (let field of fields) {
+      let paramValue = region[field[1]];
+      let paramIndex: number = field[0];
+      params = params.append('param', `${paramIndex}(${paramValue})`);
 
-  addRegion(projectId: number, region: any): Observable<any> {
-    debugger;
-    const params: HttpParams =
-      (region instanceof RegionOfType2) ? this.getParamsFromRegionOfType2(region) : null;
-// MAYBE: другие альтернативы.
-//    switch (region.constructor) {}
-//    region instanceof RegionOfType2;
+      console.log(`index=${paramIndex} value=${paramValue}`);
+    }
 
-    debugger;
     let url: string = `${this.BASE_URL}/projects/${projectId}/regions`;
     return this.http.get<any>(url, {params: params}).pipe(
       map(response => response.Result)
     );
   }
 
-  getRegion(projectId: number, regionId: number): Observable<RegionOfType2> {
-      projectId = 1;
-      regionId = 1;
+  responseResultToRegion(result: any): any {
+    let region = {};
+    let regionType = result.region_type.id;
+    let fields = this.fieldsByRegionType.get(regionType);
+    for (let field of fields) {
+      let paramIndex: number = field[0];
+      let paramName: string = field[1];
+      let paramValue = result.params[paramIndex].value;
+      region[paramName] = paramValue;
+      console.log(`index=${paramIndex} value=${paramValue}`);
+    }
+    return region;
+  }
+
+  getRegion(projectId: number, regionId: number): Observable<any> {
       let url: string = `${this.BASE_URL}/projects/${projectId}/regions/${regionId}`;
-//    let url: string = `http://api.localhost:8080/v0/projects/1/regions/1`;
       return this.http.get<any>(url).pipe(
-//        map(response => response.Result)
-        map(response => { return {length: 55, thickness: 0.55}})
+        map(response => this.responseResultToRegion(response.Result))
       );
   }
 
