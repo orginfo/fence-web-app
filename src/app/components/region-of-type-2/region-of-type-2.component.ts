@@ -19,6 +19,10 @@ export class RegionOfType2Component implements OnInit {
   regionForm: FormGroup;
   thicknesses: number[] = [0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7];
 
+  projectId: number;
+  regionId: number;
+  edit: boolean;
+
   constructor(
     private formBuilder: FormBuilder,
     private regionService: RegionService,
@@ -26,12 +30,15 @@ export class RegionOfType2Component implements OnInit {
   ) {
     this.createForm();
 
+    //TODO: projectId считается всегда доступным.
+    this.projectId = +activatedRoute.snapshot.paramMap.has('projectId');
     const edit: boolean = activatedRoute.snapshot.paramMap.has('regionId') &&
         activatedRoute.snapshot.paramMap.has('projectId');
+    this.edit = edit;
+    console.log(`edit: ${edit}`); //TODO: убрать
     if (edit) {
-      let projectId = +activatedRoute.snapshot.paramMap.has('projectId')
-      let regionId = +activatedRoute.snapshot.paramMap.get('regionId');
-      regionService.getRegion(projectId, regionId).
+      this.regionId = +activatedRoute.snapshot.paramMap.get('regionId');
+      regionService.getRegion(this.projectId, this.regionId).
         subscribe(region => this.rebuildForm(region));
     }
   }
@@ -48,10 +55,13 @@ export class RegionOfType2Component implements OnInit {
   }
 
   onSubmit() {
-    //TODO: изменить не учтено.
-    const projectId = +this.activatedRoute.snapshot.paramMap.get('projectId');
-    this.regionService.addRegion(projectId, 2, this.regionForm.value).
-      subscribe(response => {console.log(response)});
+    if (this.edit) {
+      this.regionService.updateRegion(this.projectId, 2, this.regionId, this.regionForm.value).
+        subscribe(response => {console.log(response)});
+    } else {
+      this.regionService.addRegion(this.projectId, 2, this.regionForm.value).
+        subscribe(response => {console.log(response)});
+    }
   }
 
   ngOnInit() {

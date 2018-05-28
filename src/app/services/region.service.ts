@@ -25,9 +25,9 @@ export class RegionService {
 
   constructor(private http: HttpClient) { }
 
-  addRegion(projectId: number, regionType: number, region: any): Observable<any> {
+  sendRegion(url: string, method: string, regionType: number, region: any) {
     let params: HttpParams = new HttpParams()
-      .set('method', 'put')
+      .set('method', method)
       .set('region_type', regionType.toString());
 
     let fields = this.fieldsByRegionType.get(regionType);
@@ -39,10 +39,19 @@ export class RegionService {
       console.log(`index=${paramIndex} value=${paramValue}`);
     }
 
-    let url: string = `${this.BASE_URL}/projects/${projectId}/regions`;
     return this.http.get<any>(url, {params: params}).pipe(
       map(response => response.Result)
     );
+  }
+
+  addRegion(projectId: number, regionType: number, region: any): Observable<any> {
+    let url: string = `${this.BASE_URL}/projects/${projectId}/regions/`;
+    return this.sendRegion(url, 'put', regionType, region);
+  }
+
+  updateRegion(projectId: number, regionType: number, regionId: number, region: any): Observable<any> {
+    let url: string = `${this.BASE_URL}/projects/${projectId}/regions/${regionId}`;
+    return this.sendRegion(url, 'post', regionType, region);
   }
 
   responseResultToRegion(result: any): any {
