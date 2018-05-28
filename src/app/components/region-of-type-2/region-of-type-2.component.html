@@ -1,3 +1,33 @@
 <p>
   region-of-type-2 works!
 </p>
+<h3><i>FormControl in a FormGroup</i></h3>
+<form [formGroup]="regionForm" (ngSubmit)="onSubmit()">
+    <fieldset>
+        <legend>Профнастил</legend>
+        <div class="form-group row">
+            <label for="color" class="col-lg-3 col-form-label">Длина участка, в м</label>
+            <div class="col-lg-9">
+                <input class="form-control" formControlName="length">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="thickness" class="col-lg-3 col-form-label">Толщина профлиста, мм</label>
+            <div class="col-lg-9">
+                <select id="thickness" class="form-control" formControlName="thickness">
+                    <option *ngFor="let thickness of thicknesses" [value]="thickness">{{thickness}}</option>
+                </select>
+            </div>
+        </div>
+    </fieldset>
+    <div class="form-group row">
+        <div class="col-sm-8">
+            <button type="submit" class="btn btn-outline-primary" [disabled]="regionForm.status != 'VALID'">
+                <span class="fa fa-hdd-o" aria-hidden="true"></span> Сохранить
+            </button>
+        </div>
+    </div>
+</form>
+
+<p>Form value: {{ regionForm.value | json }}</p>
+<p>Form status: {{ regionForm.status | json }}</p>
