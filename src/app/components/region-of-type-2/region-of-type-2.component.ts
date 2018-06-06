@@ -11,7 +11,7 @@ interface Colors {
 }
 
 @Component({
-  selector: 'app-region-of-type-2',
+  selector: 'app-region-of-type-no2',
   templateUrl: './region-of-type-2.component.html',
   styleUrls: ['./region-of-type-2.component.css']
 })

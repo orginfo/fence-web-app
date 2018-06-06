@@ -10,7 +10,7 @@ import { BreadcrumbItem } from './breadcrumb-item';
   templateUrl: './breadcrumb.component.html',
   styleUrls: ['./breadcrumb.component.css']
 })
-export class BreadcrumbComponent {
+export class BreadcrumbComponent implements OnInit {
   items: BreadcrumbItem[];
 
   constructor(

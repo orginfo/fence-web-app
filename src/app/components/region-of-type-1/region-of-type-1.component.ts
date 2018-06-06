@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-region-of-type-1',
+  selector: 'app-region-of-type-no1',
   templateUrl: './region-of-type-1.component.html',
   styleUrls: ['./region-of-type-1.component.css']
 })

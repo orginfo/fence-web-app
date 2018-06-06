@@ -26,7 +26,9 @@ import { RegionOfType2Component } from './components/region-of-type-2/region-of-
     RegionOfType1Component,
     RegionCreationComponent,
     BreadcrumbComponent,
-    RegionOfType2Component
+    RegionOfType1Component,
+    RegionOfType2Component,
+    RegionsComponent
   ],
   imports: [
     BrowserModule,
