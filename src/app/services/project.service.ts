@@ -43,7 +43,7 @@ export class ProjectService {
   }
 
   addProject(project: any): Observable<any> {
-    let url: string = `${this.BASE_URL}/clients/2/projects/`;
+    let url: string = `${this.BASE_URL}/clients/${project.clientId}/projects/`;
     return this.sendProject(url, 'put', project);
   }
 }
