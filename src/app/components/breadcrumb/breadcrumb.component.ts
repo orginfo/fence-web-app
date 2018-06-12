@@ -59,6 +59,11 @@ export class BreadcrumbComponent implements OnInit {
         {name: "Regions", routerLink: `/projects/${projectId}/regions`},
         {name: activatedRoute.snapshot.paramMap.get("regionId"), routerLink: null},
       ];
+    } else if (path == "new-project") {
+      this.items = [
+        {name: "Projects", routerLink: "/projects"},
+        {name: "New project", routerLink: null},
+      ];
     }
   }
 }

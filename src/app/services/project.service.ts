@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -26,5 +26,24 @@ export class ProjectService {
 
   getProjectRegions(id: number): Observable<ApiRegion[]> {
     return of(REGIONS);
+  }
+
+  sendProject(url: string, method: string, project: any) {
+    let params: HttpParams = new HttpParams()
+      .set('method', method)
+      .set('nr', project.nr)
+      .set('contract_date', project.contractDate)
+      .set('install_date', project.installDate)
+      .set('address', project.address)
+      .set('comment', project.comment);
+
+    return this.http.get<any>(url, {params: params}).pipe(
+      map(response => response.Result)
+    );
+  }
+
+  addProject(project: any): Observable<any> {
+    let url: string = `${this.BASE_URL}/clients/2/projects/`;
+    return this.sendProject(url, 'put', project);
   }
 }
