@@ -20,6 +20,13 @@ export class ProjectComponent implements OnInit {
   clients: Observable<ApiClient[]>;
   private searchTerms = new Subject<string>();
 
+  get contractDate() { return this.projectForm.get('contractDate'); }
+  get isContractDateInvalid(): boolean {
+    //TODO: вызывается дважды
+    let date = this.contractDate;
+    return date.invalid && (date.dirty || date.touched);
+  }
+
   constructor(
     private formBuilder: FormBuilder,
     private projectService: ProjectService,
@@ -37,7 +44,7 @@ export class ProjectComponent implements OnInit {
     this.projectForm = this.formBuilder.group({
       clientId: ['', Validators.required ],
       nr: ['', Validators.required ],
-      contractDate: ['', Validators.required ],
+      contractDate: ['', [Validators.required, Validators.pattern("\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z")]],
       installDate: ['', Validators.required ],
       address: ['', Validators.required ],
       comment: ['']

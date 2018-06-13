@@ -22,7 +22,13 @@
         <div class="form-group row">
             <label for="color" class="col-lg-3 col-form-label">Дата TODO:</label>
             <div class="col-lg-9">
-                <input class="form-control" formControlName="contractDate">
+                <input class="form-control" [ngClass]="{'is-invalid': isContractDateInvalid }" formControlName="contractDate">
+                <div *ngIf="isContractDateInvalid && contractDate.errors.required" class="invalid-feedback">
+                    Поле обязательно для заполнения
+                </div>
+                <div *ngIf="isContractDateInvalid && contractDate.errors.pattern" class="invalid-feedback">
+                    Поле должно быть в формате "YYYY-MM-DDThh:mm:ssZ"
+                </div>
             </div>
         </div>
         <div class="form-group row">
