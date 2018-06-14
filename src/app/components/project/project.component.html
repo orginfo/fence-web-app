@@ -16,17 +16,20 @@
         <div class="form-group row">
             <label for="color" class="col-lg-3 col-form-label">Номер TODO:</label>
             <div class="col-lg-9">
-                <input class="form-control" formControlName="nr">
+                <input class="form-control" [ngClass]="{'is-invalid': isInvalid('nr')}" formControlName="nr">
+                <div *ngIf="isInvalid('nr') && getFormField('nr').errors.required" class="invalid-feedback">
+                    Поле обязательно для заполнения
+                </div>
             </div>
         </div>
         <div class="form-group row">
             <label for="color" class="col-lg-3 col-form-label">Дата TODO:</label>
             <div class="col-lg-9">
-                <input class="form-control" [ngClass]="{'is-invalid': isContractDateInvalid }" formControlName="contractDate">
-                <div *ngIf="isContractDateInvalid && contractDate.errors.required" class="invalid-feedback">
+                <input class="form-control" [ngClass]="{'is-invalid': isInvalid('contractDate')}" formControlName="contractDate">
+                <div *ngIf="isInvalid('contractDate') && getFormField('contractDate').errors.required" class="invalid-feedback">
                     Поле обязательно для заполнения
                 </div>
-                <div *ngIf="isContractDateInvalid && contractDate.errors.pattern" class="invalid-feedback">
+                <div *ngIf="isInvalid('contractDate') && getFormField('contractDate').errors.pattern" class="invalid-feedback">
                     Поле должно быть в формате "YYYY-MM-DDThh:mm:ssZ"
                 </div>
             </div>
@@ -34,13 +37,22 @@
         <div class="form-group row">
             <label for="color" class="col-lg-3 col-form-label">Дата TODO:</label>
             <div class="col-lg-9">
-                <input class="form-control" formControlName="installDate">
+                <input class="form-control" [ngClass]="{'is-invalid': isInvalid('installDate')}" formControlName="installDate">
+                <div *ngIf="isInvalid('installDate') && getFormField('installDate').errors.required" class="invalid-feedback">
+                    Поле обязательно для заполнения
+                </div>
+                <div *ngIf="isInvalid('installDate') && getFormField('installDate').errors.pattern" class="invalid-feedback">
+                    Поле должно быть в формате "YYYY-MM-DDThh:mm:ssZ"
+                </div>
             </div>
         </div>
         <div class="form-group row">
             <label for="color" class="col-lg-3 col-form-label">Адрес TODO:</label>
             <div class="col-lg-9">
-                <input class="form-control" formControlName="address">
+                <input class="form-control" [ngClass]="{'is-invalid': isInvalid('address')}" formControlName="address">
+                <div *ngIf="isInvalid('address') && getFormField('address').errors.required" class="invalid-feedback">
+                    Поле обязательно для заполнения
+                </div>
             </div>
         </div>
         <div class="form-group row">

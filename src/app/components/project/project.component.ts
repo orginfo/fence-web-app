@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 
 import { Observable, Subject } from 'rxjs';
 import {
@@ -19,12 +19,15 @@ export class ProjectComponent implements OnInit {
   projectForm: FormGroup;
   clients: Observable<ApiClient[]>;
   private searchTerms = new Subject<string>();
+  private readonly datePattern = "\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z";
 
-  get contractDate() { return this.projectForm.get('contractDate'); }
-  get isContractDateInvalid(): boolean {
-    //TODO: вызывается дважды
-    let date = this.contractDate;
-    return date.invalid && (date.dirty || date.touched);
+  getFormField(fieldName: string): AbstractControl {
+    return this.projectForm.get(fieldName);
+  }
+
+  isInvalid(fieldName: string): boolean {
+    let field = this.projectForm.get(fieldName);
+    return field.invalid && (field.dirty || field.touched);
   }
 
   constructor(
@@ -44,8 +47,8 @@ export class ProjectComponent implements OnInit {
     this.projectForm = this.formBuilder.group({
       clientId: ['', Validators.required ],
       nr: ['', Validators.required ],
-      contractDate: ['', [Validators.required, Validators.pattern("\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z")]],
-      installDate: ['', Validators.required ],
+      contractDate: ['', [Validators.required, Validators.pattern(this.datePattern)]],
+      installDate: ['', [Validators.required, Validators.pattern(this.datePattern)]],
       address: ['', Validators.required ],
       comment: ['']
     });
