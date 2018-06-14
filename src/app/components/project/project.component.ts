@@ -45,6 +45,7 @@ export class ProjectComponent implements OnInit {
 
   createForm() {
     this.projectForm = this.formBuilder.group({
+      clientFullName: ['', Validators.required ],
       clientId: ['', Validators.required ],
       nr: ['', Validators.required ],
       contractDate: ['', [Validators.required, Validators.pattern(this.datePattern)]],
