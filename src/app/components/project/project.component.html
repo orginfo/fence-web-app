@@ -39,7 +39,7 @@
                     Поле обязательно для заполнения
                 </div>
                 <div *ngIf="isInvalid('contractDate') && getFormField('contractDate').errors.pattern" class="invalid-feedback">
-                    Поле должно быть в формате "YYYY-MM-DDThh:mm:ssZ"
+                    Поле должно быть в формате "{{now | date:'yyyy-MM-ddThh:mm:ss'}}Z"
                 </div>
             </div>
         </div>
@@ -51,7 +51,7 @@
                     Поле обязательно для заполнения
                 </div>
                 <div *ngIf="isInvalid('installDate') && getFormField('installDate').errors.pattern" class="invalid-feedback">
-                    Поле должно быть в формате "YYYY-MM-DDThh:mm:ssZ"
+                    Поле должно быть в формате "{{now | date:'yyyy-MM-ddThh:mm:ss'}}Z"
                 </div>
             </div>
         </div>

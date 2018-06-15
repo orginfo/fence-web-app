@@ -19,6 +19,7 @@ export class ProjectComponent implements OnInit {
   projectForm: FormGroup;
   clients: Observable<ApiClient[]>;
   private searchTerms = new Subject<string>();
+  now: Date;
   private readonly datePattern = "\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z";
 
   getFormField(fieldName: string): AbstractControl {
@@ -61,6 +62,7 @@ export class ProjectComponent implements OnInit {
   }
 
   ngOnInit() {
+      this.now = new Date();
       this.clients = this.searchTerms.pipe(
         debounceTime(300),
         distinctUntilChanged(),
