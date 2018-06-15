@@ -2,18 +2,18 @@
 <form [formGroup]="projectForm" (ngSubmit)="onSubmit()">
     <fieldset>
         <div class="form-group row">
-            <label for="color" class="col-lg-3 col-form-label">ФИО клиента:</label>
+            <label for="new-project-clientFullName" class="col-lg-3 col-form-label">ФИО клиента:</label>
             <div class="col-lg-9">
-                <input #searchBox class="form-control" [ngClass]="{'is-invalid': isInvalid('clientFullName')}" formControlName="clientFullName" id="search-box" (keyup)="search(searchBox.value)" />
+                <input #searchBox class="form-control" [ngClass]="{'is-invalid': isInvalid('clientFullName')}" formControlName="clientFullName" id="new-project-clientFullName" (keyup)="search(searchBox.value)" />
                 <div class="invalid-feedback">
                     Поле обязательно для заполнения
                 </div>
                 <small class="form-text text-muted" *ngIf="(clients | async)?.length == 0 && !isInvalid('clientFullName')">
                     Ни один клиент не найден
                 </small>
-                <div class="form-check" *ngFor="let client of clients | async">
-                    <input class="form-check-input" type="radio" formControlName="clientId" id="exampleRadios1" value="{{client.id}}">
-                    <label class="form-check-label" for="exampleRadios1">
+                <div class="form-check" *ngFor="let client of clients | async; let i = index">
+                    <input class="form-check-input" type="radio" formControlName="clientId"  [attr.id]="'new-project-clientId'+i" value="{{client.id}}">
+                    <label [attr.for]="'new-project-clientId'+i" class="form-check-label">
                         {{client.name}} {{client.phone}}
                     </label>
                 </div>
@@ -23,18 +23,18 @@
             </div>
         </div>
         <div class="form-group row">
-            <label for="color" class="col-lg-3 col-form-label">Номер TODO:</label>
+            <label for="new-project-nr" class="col-lg-3 col-form-label">Номер TODO:</label>
             <div class="col-lg-9">
-                <input class="form-control" [ngClass]="{'is-invalid': isInvalid('nr')}" formControlName="nr">
+                <input class="form-control" [ngClass]="{'is-invalid': isInvalid('nr')}" formControlName="nr" id="new-project-nr">
                 <div *ngIf="isInvalid('nr') && getFormField('nr').errors.required" class="invalid-feedback">
                     Поле обязательно для заполнения
                 </div>
             </div>
         </div>
         <div class="form-group row">
-            <label for="color" class="col-lg-3 col-form-label">Дата TODO:</label>
+            <label for="new-project-contractDate" class="col-lg-3 col-form-label">Дата TODO:</label>
             <div class="col-lg-9">
-                <input class="form-control" [ngClass]="{'is-invalid': isInvalid('contractDate')}" formControlName="contractDate">
+                <input class="form-control" [ngClass]="{'is-invalid': isInvalid('contractDate')}" formControlName="contractDate" id="new-project-contractDate">
                 <div *ngIf="isInvalid('contractDate') && getFormField('contractDate').errors.required" class="invalid-feedback">
                     Поле обязательно для заполнения
                 </div>
@@ -44,9 +44,9 @@
             </div>
         </div>
         <div class="form-group row">
-            <label for="color" class="col-lg-3 col-form-label">Дата TODO:</label>
+            <label for="new-project-installDate" class="col-lg-3 col-form-label">Дата TODO:</label>
             <div class="col-lg-9">
-                <input class="form-control" [ngClass]="{'is-invalid': isInvalid('installDate')}" formControlName="installDate">
+                <input class="form-control" [ngClass]="{'is-invalid': isInvalid('installDate')}" formControlName="installDate" id="new-project-installDate">
                 <div *ngIf="isInvalid('installDate') && getFormField('installDate').errors.required" class="invalid-feedback">
                     Поле обязательно для заполнения
                 </div>
@@ -56,18 +56,18 @@
             </div>
         </div>
         <div class="form-group row">
-            <label for="color" class="col-lg-3 col-form-label">Адрес TODO:</label>
+            <label for="new-project-address" class="col-lg-3 col-form-label">Адрес TODO:</label>
             <div class="col-lg-9">
-                <input class="form-control" [ngClass]="{'is-invalid': isInvalid('address')}" formControlName="address">
+                <input class="form-control" [ngClass]="{'is-invalid': isInvalid('address')}" formControlName="address" id="new-project-address">
                 <div *ngIf="isInvalid('address') && getFormField('address').errors.required" class="invalid-feedback">
                     Поле обязательно для заполнения
                 </div>
             </div>
         </div>
         <div class="form-group row">
-            <label for="color" class="col-lg-3 col-form-label">Комментарий TODO:</label>
+            <label for="new-project-comment" class="col-lg-3 col-form-label">Комментарий TODO:</label>
             <div class="col-lg-9">
-                <textarea class="form-control" rows="3" formControlName="comment"></textarea>
+                <textarea class="form-control" rows="3" formControlName="comment" id="new-project-comment"></textarea>
             </div>
         </div>
     </fieldset>
